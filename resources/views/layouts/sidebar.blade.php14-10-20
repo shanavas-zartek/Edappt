@@ -1,0 +1,659 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+          <!-- <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a> -->
+          <a class="sidebar-brand brand-logo" href="{{ route('dashboard.index') }}"><h2>Edappt</h2></a>
+          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{ route('dashboard.index') }}">
+          <img src="http://myedappt.com/dev/edappt_admin/public/assets/images/logo-mini.svg" alt="logo" />
+          </a>
+      
+        </div>
+        @if(Auth::user()->teacher_id == 0)
+        <ul class="nav">
+         
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#Dashboard" aria-expanded="false" aria-controls="ui-basic">
+            <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Dashboard">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('dashboard.index')}}">Admin Dashboard</a>
+                </li>
+             <li class="nav-item">
+                  <a class="nav-link" href="#">Teacher Account</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="#">DSA Account</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Vendor Account</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#Usergroups" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">User Groups</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Usergroups">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route('DSAdetails.index')}}">DSA List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('vendors.index')}}">Vendor List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('teacher.index')}}">Teacher List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('parentdetail.index')}}">Parent List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentdetails.index')}}">Student List</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#DSAinformation" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">DSA Information</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="DSAinformation">
+              <ul class="nav flex-column sub-menu">
+                
+               
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route('DSAdetails.index')}}">DSA Details</a>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">DSA Referal Points</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">DSA Login History </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">DSA Complaints</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#vendor" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Vendor Information</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="vendor">
+              <ul class="nav flex-column sub-menu">
+                
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('vendorcategory.index')}}">Vendor category</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="{{ route('vendors.index')}}">Vendor Details</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Vendor Student Admissions</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Vendor Referal Points</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#parentdetails" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Parents Information</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="parentdetails">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('parentdetail.index')}}">Parent Details</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Parent Kids</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Parent Subscriptions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Parent Complaints</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('loginhistory.index')}}">Parent Login History</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#student" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Student Information</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="student">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentdetails.index')}}">Student Details</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Student Groups</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentqueries.index')}}">Student Queries</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentgoals.index')}}">Student Goals</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentscrapbook.index')}}">Student Scrap Book</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('achievements.index')}}">Student Achievements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('postings.index')}}">Student Posts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentrepository.index')}}">Student Repository</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Student Complaints</a>
+                </li>
+              </ul>
+            
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#subscription" aria-expanded="false" aria-controls="subscription">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Subscription Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="subscription">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Subscribed Parent List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('subscription.index')}}">Subscription Packages</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Payment Modes & Status</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Payment Reminders</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#studygroupmanagement" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Study Group Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="studygroupmanagement">
+              <ul class="nav flex-column sub-menu">
+                
+               
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Manage Groups</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="#">Manage Sections</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ld" aria-expanded="false" aria-controls="ld">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Learning & Development</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ld">
+              <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('course.index')}}">Course</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('coursedetails.index')}}">Course Videos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('purchased.index')}}">Courses Purchased</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('learning.index')}}">L&D Category</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('development.index')}}">L&D Details</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('bookslot.index')}}">
+            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Book A Slot</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#teachers" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Teacher on demand</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="teachers">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('teacher.index')}}">Teachers on-boarding</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('teacher.requested')}}">Teacher on demand</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Teacher billing</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#studentsattendance" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Students Attendance</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="studentsattendance">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Manage Attendance </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Attendance Report</a>
+                </li>
+               
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#teachersattendance" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Teachers Attendance</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="teachersattendance">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Manage Attendance </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Attendance Report</a>
+                </li>
+               
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#quiz" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title"> Quiz Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="quiz">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Quiz List </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Quiz Grades</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Quiz marks Management</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Students Winner Points</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Result Overview</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#payments" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Payment & Fees Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="payments">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Students Invoices</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Recent Payments</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#notifications" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Notification Services</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="notifications">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Notice Board</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Private Messaging</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Email,SMS Alerts Reminders</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#blogs" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Blogs</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="blogs">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('adminblogs.index')}}">Admin</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentblogs.index')}}">Student</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#optionpolltype" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Opinion Polls</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="optionpolltype">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('optionpolltype.index')}}">Opinion Polls type </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('optionpoll.index')}}">Opinion Polls </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('optionpoll.requests')}}">Opinion Polls requests </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentopinions.index')}}">Students Opinions </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#studygroup" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Study Groups</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="studygroup">
+              <ul class="nav flex-column sub-menu">
+                
+               
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studygrouprequest.index')}}">Study Group Request</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studygroup.index')}}">Study Group</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#discussionforum" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Discussion Forum</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="discussionforum">
+              <ul class="nav flex-column sub-menu">
+                
+               
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('discussionforumcategory.index')}}"> Category</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="{{ route('discussionforum.index')}}">Discussion Forum</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('discussionforumdtl.index')}}"> Reply</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Visitors Log</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Complaints</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Settings</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="settings">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('company')}}">Company Information</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Database Backup</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">System Requirements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">SMS Settings</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Passwords Reset</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Selected Time Zones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('agegroup.index')}}">Age Groups</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('subscription.index')}}">Subscription Plans</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('userrole.index')}}">User Roles</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('demo.index')}}">Demo Videos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('country.index')}}">Country List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('states.index')}}">States List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('district.index')}}">District List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('city.index')}}">City List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('videofileupload.index')}}"> Video Upload</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('audiofileupload.index')}}"> Audio Upload</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('magazine.index')}}"> Magazine</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#Preferences" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Preferences</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Preferences">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('preferences.index')}}">Preference category</a>
+                </li>
+             <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studentpreferences.index')}}">Student Preferences</a>
+                </li> 
+              </ul>
+            </div>
+          </li>
+         
+     
+         
+          
+         
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#contents" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Activities</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="contents">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('contentcategory.index')}}">Content category</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('subject.index')}}">Subjects</a>
+                </li>
+            
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('details.index')}}">Content Details</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tasks" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Tasks</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tasks">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('task.index')}}">Task </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('studenttasks.index')}}">Students Task </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+         
+         
+          
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{ route('forms')}}">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Forms</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{ route('chartjs')}}">
+              <i class="mdi mdi-chart-bar menu-icon"></i>
+              <span class="menu-title">Charts</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{ route('tables')}}">
+              <i class="mdi mdi-table-large menu-icon"></i>
+              <span class="menu-title">Tables</span>
+            </a>
+          </li> -->
+         
+        </ul>  
+        @else
+        <ul class="nav">
+         
+         <!-- <li class="nav-item">
+           <a class="nav-link" href="{{ route('teacher.home')}}">
+             <i class="mdi mdi-home menu-icon"></i>
+             <span class="menu-title">Dashboard</span>
+           </a>
+         </li> -->
+         <li class="nav-item">
+            <a class="nav-link" href="{{ route('dashboard.index')}}">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('teacher.ondemand')}}">
+          <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            <span class="menu-title">Requests</span>
+          </a>
+        </li>
+        </ui>
+        @endif
+      </nav>

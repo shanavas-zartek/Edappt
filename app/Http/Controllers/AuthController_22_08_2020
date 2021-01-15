@@ -1,0 +1,247 @@
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Parentdetail;
+use App\Appusers;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
+class AuthController extends Controller
+{
+    /**
+     * Create user
+     *
+     * @param  [string] name
+     * @param  [string] email
+     * @param  [string] password
+     * @param  [string] password_confirmation
+     * @return [string] message
+     */
+    public function signup(Request $request)
+    {
+        // abort(500,'Something went wrong');
+        $validator = Validator::make($request->all(), [
+            'parent_name' => 'required',
+            'contact_number' => 'required|unique:parent_details,contact_no|digits:10',
+            'email' => 'required|email|unique:parent_details,email', 
+            'password' => 'required|min:6'
+        ]);
+
+       
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+       
+
+        $user = new Parentdetail([
+            'first_name' => $request->parent_name,
+            'contact_no' => $request->contact_number,
+            'email' => $request->email,
+            'is_Active' => 1
+        ]);
+        if($user->save()){
+        $userdet = new Appusers(['parent_id'=>$user->id,
+        'username'=> $request->contact_number,
+        'password'=>Hash::make($request->password),
+        'is_active' => 1]);
+        $userdet->save();
+        return response()->json([
+                    'message' => 'Successfully created parent!',
+                    'code' => 201  ,
+                    'parent_id' => $user->id         
+                ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create parent!',
+                'code' => 400
+            ]);
+        }
+       
+    }
+    
+  
+  public function parent_details(Request $request){
+
+    $validator = Validator::make($request->all(), [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'state' => 'required',
+        'district' => 'required',
+        'city'=> 'required',
+        'address'=> 'required',
+        'pincode'=> 'required',
+        'phone'=> 'required',
+        'parent_id'=> 'required',
+    ]);
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+   $parent_id = $request->parent_id;
+
+    $affectedRows = Parentdetail::where('id', '=', $parent_id)->update([
+        'first_name'          => $request->first_name,
+        'last_name'          => $request->last_name,
+        'contact_no'   => $request->phone,
+        'address'     => $request->address,
+        'country' => 1,
+        'district'  => $request->district,
+        'city'         => $request->city,
+        'state'   => $request->state,
+        'pincode'   => $request->pincode,
+        'alternate_no'   => $request->alternate_no,
+        'is_Active' => 1
+   ]);
+   if($affectedRows){
+    return response()->json([
+        'message' => 'Parent details successfully updated',
+        'code' => 201       
+    ]);
+    }else{
+        return response()->json([
+            'message' => 'Failed to update parent details',
+            'code' => 400
+        ]);
+    }
+  }
+  
+  
+  
+  public function check_duplicate_mobile(Request $request) {
+      $validator = Validator::make($request->all(), [
+        'contact_no'=> 'required',
+    ]);
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+    
+    $contact_no = $request->contact_no;
+    
+    return response()->json(Parentdetail::where('contact_no', '=', $contact_no)->get());
+    
+  }
+  
+  public function check_duplicate_email_phone(Request $request) {
+      $validator = Validator::make($request->all(), [
+        'email'=> 'required',
+    ]);
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+    
+    $email = $request->email;
+    $contact_no = $request->contact_no;
+    
+    return response()->json(Parentdetail::where('email', '=', $email)->orWhere('contact_no', '=', $contact_no)->get());
+}
+  
+  public function update_password(Request $request) {
+      $validator = Validator::make($request->all(), [
+        'username'=> 'required',
+        'password'=> 'required',
+    ]);
+    
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+    
+    $username = $request->username;
+    $affectedRows = Appusers::where('username', '=', $username)->update([
+        'password'          => $request->password
+   ]);
+   
+   return response()->json([
+                    'message' => 'Successfully updated password!',
+                    'code' => 201    
+                ]);
+   
+  }
+  
+  
+    /**
+     * Login user and create token
+     *
+     * @param  [string] email
+     * @param  [string] password
+     * @param  [boolean] remember_me
+     * @return [string] access_token
+     * @return [string] token_type
+     * @return [string] expires_at
+     */
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'contact_number' => 'required|digits:10',
+            'password' => 'required|string'
+        ]);
+
+       
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        
+        
+       $edit =  Appusers::where('username',$request->contact_number)->first();
+       $dataa = Hash::check($request->password, $edit->password);
+        if( $dataa == true){
+            return response()->json( Parentdetail::where('id', $edit->parent_id)->first()) ;
+        }else{
+            return response()->json([
+                'message' => 'The contact number or password is incorrect',
+                'code' => 400
+            ]);
+        }
+       
+       
+    }
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|string|email',
+    //         'password' => 'required|string',
+    //         'remember_me' => 'boolean'
+    //     ]);
+    //     $credentials = request(['email', 'password']);
+    //     if(!Auth::attempt($credentials))
+    //         return response()->json([
+    //             'message' => 'Unauthorized'
+    //         ], 401);
+    //     $user = $request->user();
+    //     $tokenResult = $user->createToken('Personal Access Token');
+    //     $token = $tokenResult->token;
+    //     if ($request->remember_me)
+    //         $token->expires_at = Carbon::now()->addWeeks(1);
+    //     $token->save();
+    //     return response()->json([
+    //         'access_token' => $tokenResult->accessToken,
+    //         'token_type' => 'Bearer',
+    //         'expires_at' => Carbon::parse(
+    //             $tokenResult->token->expires_at
+    //         )->toDateTimeString()
+    //     ]);
+    // }
+  
+    /**
+     * Logout user (Revoke the token)
+     *
+     * @return [string] message
+     */
+    // public function logout(Request $request)
+    // {
+    //     $request->user()->token()->revoke();
+    //     return response()->json([
+    //         'message' => 'Successfully logged out'
+    //     ]);
+    // }
+  
+    /**
+     * Get the authenticated User
+     *
+     * @return [json] user object
+     */
+    // public function user(Request $request)
+    // {
+    //     return response()->json($request->user());
+    // }
+}
